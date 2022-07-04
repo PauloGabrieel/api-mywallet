@@ -31,6 +31,15 @@ async function getWallet(req, res){
     
     
 };
+async function logout(req,res){
+    const session = res.locals.session;
+    try {
+        await db.collection("sessions").deleteMany({userId: session.userId})
+        res.sendStatus(200);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 async function newCashInFlow(req, res){
     const session = res.locals.session;
@@ -76,4 +85,4 @@ async function expense(req,res){
 };
 
 
-export { getWallet, newCashInFlow, expense };
+export { getWallet, newCashInFlow, expense, logout };
