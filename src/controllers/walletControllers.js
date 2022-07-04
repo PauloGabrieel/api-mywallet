@@ -7,21 +7,28 @@ async function getWallet(req, res){
         const user = await db.collection("users").findOne({_id: session.userId});
         const income = await db.collection("wallet").find({userId: session.userId, operation: "income"}).toArray();
         const expense = await db.collection("wallet").find({userId: session.userId, operation: "expense"}).toArray(); 
-        
+        console.log(income[0].value);
+        let totalIncome = 0;
+        let totalExpense = 0;
         income.map(item => {
             delete item._id;
             delete item.userId;
             delete item.operation;
+            totalIncome += parseInt(item.value);
         });
         expense.map(item => {
             delete item._id;
             delete item.userId;
             delete item.operation;
+            totalExpense += parseInt(item.value);
         });
+        console.log(totalIncome);
+        console.log(income[0].value);
         const data = {
             name: user.name,
             income: income,
-            expense: expense
+            expense: expense,
+            total: (totalIncome-totalExpense).toFixed(2)
         }
         res.send(data);
     } catch (error) {
@@ -50,7 +57,7 @@ async function newCashInFlow(req, res){
         await db.collection("wallet").insertOne({
             userId: user._id,
             description,
-            value,
+            value: parseInt(value).toFixed(2),
             date: dayjs().format("DD/MM"),
             operation: "income"
         });
@@ -72,7 +79,7 @@ async function expense(req,res){
         await db.collection("wallet").insertOne({
             userId: user._id,
             description,
-            value,
+            value: parseInt(value).toFixed(2),
             date: dayjs().format("DD/MM"),
             operation: "expense"
         });
