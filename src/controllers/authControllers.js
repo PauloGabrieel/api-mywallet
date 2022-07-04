@@ -1,9 +1,8 @@
 import bcrypt from "bcrypt";
 import {v4 as uuid} from "uuid"
-import dotenv from "dotenv";
 import {db , objectId} from "../dbStrategy/mongo.js";
 
-dotenv.config();
+
 
 async function createUser(req, res){
     const userData = req.body;
