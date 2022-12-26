@@ -1,10 +1,11 @@
+import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import {v4 as uuid} from "uuid"
-import {db , objectId} from "../dbStrategy/mongo.js";
+import {db , objectId} from "../dbStrategy/postgres";
 
 
 
-async function createUser(req, res){
+async function createUser(req: Request, res: Response){
     const userData = req.body;
     try {
         const cryptPassword = bcrypt.hashSync(userData.password,10);
@@ -20,7 +21,7 @@ async function createUser(req, res){
     };
 };
 
-async function loginUser(req,res){
+async function loginUser(req: Request, res: Response){
     const userData = req.body;
     try {
     

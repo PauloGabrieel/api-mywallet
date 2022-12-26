@@ -1,4 +1,4 @@
-import { db } from "../dbStrategy/mongo.js"
+import { db } from "../dbStrategy/postgres.js"
 
 export default async function tokenValidation(req, res, next){
     const {authorization} = req.headers;

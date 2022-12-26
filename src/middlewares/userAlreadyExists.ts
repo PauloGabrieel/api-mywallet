@@ -1,4 +1,4 @@
-import {db} from "../dbStrategy/mongo.js";
+import {db} from "../dbStrategy/postgres.js";
 
 export default async function userAlreadyExists(req,res,next){
     const {email} = req.body;

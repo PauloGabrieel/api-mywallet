@@ -1,10 +1,9 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import authRouter from "./routes/authRouter.js";
-import walletRouter from "./routes/walletRouter.js"
-import { db, objectId } from "./dbStrategy/mongo.js";
-import dayjs from "dayjs";
+import authRouter from "./routes/authRouter";
+import walletRouter from "./routes/walletRouter"
+
 
 
 dotenv.config();

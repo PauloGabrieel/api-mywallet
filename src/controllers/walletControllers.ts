@@ -1,7 +1,8 @@
-import {db, objectId} from "../dbStrategy/mongo.js";
+import { Request, Response } from "express";
+import {db, objectId} from "../dbStrategy/postgres";
 import dayjs from "dayjs";
 
-async function getWallet(req, res){
+async function getWallet(req: Request, res: Response){
     const session = res.locals.session;
     try {
         const user = await db.collection("users").findOne({_id: session.userId});
@@ -38,7 +39,7 @@ async function getWallet(req, res){
     
     
 };
-async function logout(req,res){
+async function logout(req: Request,res: Response){
     const session = res.locals.session;
     try {
         await db.collection("sessions").deleteMany({userId: session.userId})
@@ -48,7 +49,7 @@ async function logout(req,res){
     }
 }
 
-async function newCashInFlow(req, res){
+async function newCashInFlow(req: Request, res: Response){
     const session = res.locals.session;
     const {value, description} = req.body;
     try {
@@ -69,7 +70,7 @@ async function newCashInFlow(req, res){
     
 };
 
-async function expense(req,res){
+async function expense(req: Request, res: Response){
     const session = res.locals.session;
     const {value, description} = req.body;
     
