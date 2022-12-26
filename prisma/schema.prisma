@@ -9,3 +9,36 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Type {
+  EXPENSE
+  REVENUE
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  name     String    @db.VarChar(256)
+  email    String    @unique @db.VarChar(256)
+  password String
+  Wallet   Wallet[]
+  Session  session[]
+
+  @@map("user")
+}
+
+model Wallet {
+  id     Int  @id @default(autoincrement())
+  value  Int
+  type   Type
+  userId Int
+  User   User @relation(fields: [userId], references: [id])
+
+  @@map("wallet")
+}
+
+model session {
+  id     Int    @id @default(autoincrement())
+  token  String
+  userId Int
+  User   User   @relation(fields: [userId], references: [id])
+}
