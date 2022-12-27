@@ -1,11 +1,11 @@
-import { signInSchema } from "../schema/userSchema.js";
+import { signInSchema } from '../schema/userSchema';
 
-export default function signinValidation(req, res, next){
-    const userData = req.body;
+export default function signinValidation(req, res, next) {
+nst userData = req.body;
 
-    const {error} = signInSchema.validate(userData);
+    const { error } = signInSchema.validate(userData);
 
-    if(error){
+    if (error) {
         return res.status(422).send(error.details);
     };
     next();
