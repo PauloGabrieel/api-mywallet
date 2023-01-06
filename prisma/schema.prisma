@@ -21,9 +21,9 @@ model User {
   email    String    @unique @db.VarChar(256)
   password String
   Wallet   Wallet[]
-  Session  session[]
+  Session  Session[]
 
-  @@map("user")
+  @@map("users")
 }
 
 model Wallet {
@@ -33,12 +33,14 @@ model Wallet {
   userId Int
   User   User @relation(fields: [userId], references: [id])
 
-  @@map("wallet")
+  @@map("wallets")
 }
 
-model session {
+model Session {
   id     Int    @id @default(autoincrement())
   token  String
   userId Int
   User   User   @relation(fields: [userId], references: [id])
+
+  @@map("sessions")
 }

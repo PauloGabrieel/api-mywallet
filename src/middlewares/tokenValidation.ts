@@ -1,29 +1,32 @@
 import { Request, Response, NextFunction } from "express";
 import prisma from "../dbStrategy/postgres";
 import * as jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-export default async function tokenValidation(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-  const {authorization} = req.headers;
-  const token = authorization?.replace("Bearer ", "");
+dotenv.config();
+
+// export default async function tokenValidation(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+//   const {authorization} = req.headers;
+//   const token = authorization?.replace("Bearer ", "");
   
-  if(!token) return res.status(403).send("You must be signed in to continue");
+//   if(!token) return res.status(403).send("You must be signed in to continue");
   
-  try {
-    const { userId } = jwt.verify(token, process.env.JWT_SECRET) as JWTPayload;
+//   try {
+//     const { userId } = jwt.verify(token, process.env.JWT_SECRET)
 
-    const session = await prisma.session.findFirst({
-      where: {
-       token,
-      }
-    });
+//     const session = await prisma.session.findFirst({
+//       where: {
+//        token,
+//       }
+//     });
 
-    if(!session) return res.status(403).send("You must be signed in to continue");
-    req.userId = userId
-    return next();
-  } catch (error) {
-    return res.status(403).send("You must be signed in to continue");
-  }
-};
+//     if(!session) return res.status(403).send("You must be signed in to continue");
+//     req.userId = userId
+//     return next();
+//   } catch (error) {
+//     return res.status(403).send("You must be signed in to continue");
+//   }
+// };
 
 
 
