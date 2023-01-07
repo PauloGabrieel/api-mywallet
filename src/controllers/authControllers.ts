@@ -5,6 +5,7 @@ import * as authService from "../services/authService";
 
 async function create(req: Request, res: Response) {
   const userData = req.body as UserData;
+  
   try {
     const validation = signUpSchema.validate(userData,{abortEarly: false})
     if(validation.error) {

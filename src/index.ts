@@ -21,3 +21,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=>{
     console.log(`Servidor online na PORT:${PORT}`);
 })
+
+export default app;
